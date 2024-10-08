@@ -52,12 +52,18 @@ namespace RestWoodPellets.Controllers
                 return BadRequest("WoodPellet data is null."); // Return 400 if data is missing or invalid
             }
 
+            try
+            {
+                // Validate the WoodPellet object
+                value.Validate();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Validation failed: {ex.Message}");  // Return 400 with validation error message
+            }
+
             var addedWoodPellet = _repo.AddWoodPellet(value);
 
-            if (addedWoodPellet == null)
-            {
-                return NotFound("Book could not be added."); // Return 404 if there's a specific failure
-            }
 
             // If book is successfully added, return 201 and the created object
             return CreatedAtAction(nameof(Get), new { id = addedWoodPellet.Id }, addedWoodPellet);
@@ -74,6 +80,19 @@ namespace RestWoodPellets.Controllers
             {
                 return BadRequest("WoodPellet data is null.");  // Return 400 if no data is provided
             }
+            // Validate the input data
+
+            // Validate the input data
+            try
+            {
+                // Validate the WoodPellet object
+                value.Validate();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Validation failed: {ex.Message}");  // Return 400 with validation error message
+            }
+
 
             var existingwoodpellet = _repo.GetWoodPelletById(id);
 
