@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WoodPelletsLib;
+using RestWoodPellets.Repository;
+using RestWoodPellets.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,7 +10,13 @@ namespace RestWoodPellets.Controllers
     [ApiController]
     public class WoodPelletController : ControllerBase
     {
-        private readonly WoodPelletRepository _repo = new WoodPelletRepository();
+        private readonly WoodPelletRepository _repo;
+
+        public WoodPelletController(WoodPelletRepository repo) //dependency injection
+        {
+            _repo = repo;
+        }
+
 
 
         // GET: api/<WoodPelletController>
